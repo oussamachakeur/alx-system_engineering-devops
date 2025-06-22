@@ -1,0 +1,29 @@
+## Secured and Monitored Web Infrastructure
+
+**Domain**: www.foobar.com  
+**DNS**: A Record → Load Balancer IP (e.g., 8.8.8.8)
+
+### Components:
+- 1 Load Balancer (SSL terminates here)
+- 2 Web/App Servers (Nginx + App Logic)
+- 1 MySQL DB Server
+- SSL Certificate (HTTPS enabled)
+- 3 Firewalls (One per server)
+- 3 Monitoring Clients (SumoLogic/DataDog/Prometheus)
+
+### Security Features:
+- **Firewalls**: Limit access to allowed ports (e.g., 443, 3306, etc.).
+- **HTTPS**: SSL certificate ensures encrypted traffic.
+- **Private Networking**: Internal server communication only allowed within the network.
+
+### Monitoring:
+- **Purpose**: Track system health, performance, and detect anomalies.
+- **Tools**: SumoLogic, Datadog, or Prometheus.
+- **Collected Metrics**: CPU, RAM, Disk, Web QPS, DB queries, logs.
+- **Monitoring QPS**: Log-based analysis or metric exporters on Nginx/HAProxy.
+
+### Limitations:
+- **SSL Termination at LB**: Unencrypted internal traffic is vulnerable.
+- **Single DB Write Node**: Fails = downtime, no writes possible.
+- **Combined Roles on Servers**: Risk of overload, hard to isolate issues.
+
