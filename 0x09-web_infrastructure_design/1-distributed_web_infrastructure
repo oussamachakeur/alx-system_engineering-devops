@@ -1,0 +1,26 @@
+## Simple Web Infrastructure Design
+
+**User Request Flow:**
+User types `www.foobar.com` → DNS resolves to `8.8.8.8` → Nginx → App Server → Database
+
+**Components (All on 1 server):**
+- Web Server: Nginx
+- App Server: Gunicorn/PHP-FPM
+- Application Files: Codebase (backend/frontend)
+- Database: MySQL
+- Domain Name: foobar.com
+- DNS Record: A record for www.foobar.com → 8.8.8.8
+
+**Explanations:**
+- Server: Machine hosting all services.
+- Domain Name: Maps human-readable URL to IP.
+- DNS Record: 'www' is an A record pointing to the server.
+- Web Server: Handles HTTP(S) and routes traffic to app.
+- App Server: Runs code and handles logic.
+- Database: Stores persistent structured data.
+- Protocol: HTTP/S over TCP/IP connects user to server.
+
+**Limitations:**
+- Single Point of Failure (SPOF)
+- Downtime during maintenance or deployment
+- Cannot handle large scale traffic (no auto-scaling or redundancy)
