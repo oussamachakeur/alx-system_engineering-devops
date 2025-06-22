@@ -1,0 +1,32 @@
+## Distributed Web Infrastructure Design
+
+**Website**: www.foobar.com  
+**DNS A Record**: www.foobar.com → Load Balancer IP (8.8.8.8)
+
+### Components:
+- **Load Balancer (HAProxy)**: Distributes traffic to app servers using Round Robin.
+- **2 Servers (Web + App Servers)**: Nginx + App server + Application files.
+- **Database (MySQL)**: One Primary (write) DB. Optional Replica (read scaling).
+
+### Load Balancer:
+- **Algorithm**: Round Robin
+- **Setup**: Active-Active
+  - Both app servers handle traffic simultaneously.
+  - Ensures better utilization and performance.
+
+### Database Cluster:
+- **Primary**: Handles all writes.
+- **Replica**: Handles reads (optional).
+- **Replication**: Asynchronous or semi-sync to avoid write bottlenecks.
+
+### Key Concepts:
+- **Active-Active**: Multiple servers run concurrently.
+- **Active-Passive**: Only one server handles traffic; the other is on standby.
+- **SPOF**: Load balancer must be replicated or redundant to avoid system failure.
+- **DNS Record www**: An A record that maps www.foobar.com to the server IP.
+
+### Limitations:
+- Load balancer is a SPOF.
+- No HTTPS or firewall = security vulnerabilities.
+- No monitoring = hard to detect issues or scale.
+
